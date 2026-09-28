@@ -28,7 +28,7 @@ function App() {
         <div onClick={Ajouter} className="border-black border-[1px] w-[300px] min-h-[300px] p-5 flex flex-wrap justify-center items-center gap-4 box-content">
             {
               liste.map((ele,key)=>{
-                return <div onClick={()=>{if(nbFois.current<=20)setState(ele.id);nbFois.current++;}} key={ele.id} className="bg-green-400 hover:bg-black transition-all duration-300 rounded-[10px] text-white w-[80px] h-[80px] flex justify-center items-center">{ele.id}</div>
+                return <div   onClick={()=>{if(nbFois.current<=20)setState(ele.id);nbFois.current++;}} key={ele.id} className="bg-green-400 hover:bg-black transition-all duration-300 rounded-[10px] text-white w-[80px] h-[80px] flex justify-center items-center">{ele.id}</div>
               })
             }
         </div>
