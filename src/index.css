@@ -14,3 +14,15 @@
     gap: 20px;
     flex-direction: column;
 }
+
+
+.class1{
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    width: 400px;
+    height: 500px;
+    gap: 10px;
+    justify-content:center;
+    grid-template-rows: repeat(6,100px);
+    
+}
