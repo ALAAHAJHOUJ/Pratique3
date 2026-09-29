@@ -26,3 +26,16 @@
     grid-template-rows: repeat(6,100px);
     
 }
+
+
+.class22{
+    width: 400px;
+    height: 400px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    grid-template-rows:repeat(3,100px);
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+}
