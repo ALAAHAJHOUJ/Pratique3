@@ -50,7 +50,7 @@ function Reucperer() {
       {
         typeof liste=="string"?<span className='text-[30px] font-bold'>{liste}</span>:
         liste.map((ele,key)=>{
-            return <div style={{boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"}} className=' rounded-[10px] p-5 w-[80%] h-[50px] flex justify-center items-center' key={ele.id}>{`Exemple-${ele.id}:${ele.propr1}_${ele.propr2}`}</div>
+            return <div style={{boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"}} className=' rounded-[10px] p-5 w-[80%] h-[50px] flex justify-center items-center text-center' key={ele.id}>{`Exemple-${ele.id}:${ele.propr1}_${ele.propr2}`}</div>
         })
       }
     </div>

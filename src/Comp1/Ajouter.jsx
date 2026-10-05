@@ -35,10 +35,19 @@ function Ajouter() {
 
 
   useEffect(()=>{
-    window.addEventListener("keydown",(e)=>{
+    const Handle1=(e)=>{
+        console.log("tester")
         if(e.key=="ArrowDown"||e.key=="ArrowUp")
           HandleFocus()
-    })
+    }
+
+    window.addEventListener("keydown",Handle1)
+
+    return ()=>{
+      window.removeEventListener("keydown",Handle1)
+    }
+
+    
   },[])
 
 
