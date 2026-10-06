@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import MonComponent from './Index1'
+
 
 
 function Index() {
@@ -9,12 +11,8 @@ function Index() {
 
   return (
     <>
-        {
-            state1%2==1?  <motion.div initial={{scaleX:1}} animate={{scaleX:[1,0.4,1]}} transition={{duration:1}} className='border-black bg-black rounded-[10px] border-[1px] w-[100px] h-[4px]'>
-
-                        </motion.div>:<></>
-        }
-
+        
+        <MonComponent name={`nom:${state1}`}></MonComponent>
         <div className='border-black border-[1px] w-[300px] h-[300px] flex justify-center items-center ' onClick={()=>{setState1(state1+1)}}>
             nombre:{`${state1}`}
         </div>
