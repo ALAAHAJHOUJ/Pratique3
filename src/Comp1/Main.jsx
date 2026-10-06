@@ -5,6 +5,8 @@ import Reucperer from './Reucperer'
 
 function Main() {
   const [state1,setState1]=useState("Ajouter")
+
+  
   return (
        <>
          <button  onClick={()=>{setState1("Ajouter")}} className='bg-blue-500 font-bold hover:bg-blue-300 cursor-pointer text-white w-[120px] h-[50px] rounded-[10px] flex justify-center items-center'>Ajouter</button>
