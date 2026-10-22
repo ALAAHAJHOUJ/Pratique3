@@ -5,6 +5,7 @@ import Index2 from './Folder2/Index2';
 import Pratique from './Pratique1/Pratique';
 import Comp1 from './Folder3/Comp1';
 import Test from './Test/Test';
+import Test1 from './Test55/Test';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
