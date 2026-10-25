@@ -2,19 +2,23 @@ import React, { useEffect, useRef, useState } from 'react'
 
 function Test() {
   const [suggestion,setSuggestions]=useState([])
+  const suggestionAux=useRef([])
   const ref1=useRef()
   const [selected,setSelected]=useState("")
   const [montrer,setMontrer]=useState(false)
-
+  const valeur=useRef(0)
+  const [selectedElement,setSelectedElement]=useState(null)
+  const montrerAux=useRef(false)
+  const selectedAux=useRef(null)
 
   const chercher=(e)=>{
-     if(!e.target.value) { setSuggestions([]);setMontrer(false);return }
+     if(!e.target.value) { setSuggestions([]);suggestionAux.current=[];setMontrer(false);montrerAux.current=false;return }
 
 
 
      fetch("http://localhost:4000/suggestions/"+e.target.value)
      .then((res)=>{return res.json()})
-     .then((res)=>{setSuggestions(res);setMontrer(true)})
+     .then((res)=>{setSuggestions(res);setMontrer(true);montrerAux.current=true;suggestionAux.current=res})
      .catch((err)=>{console.log(err)})
   }
 
@@ -23,18 +27,107 @@ function Test() {
     window.addEventListener("click",(e)=>{
         if(e.target==document.getElementById("root")||e.target==document.getElementById("me"))
                setMontrer(false)
+               montrerAux.current=false
+               selectedAux.current=null
+               setSelectedElement(null)
        })
+
+
   },[])
+
+
+
+
+
+  useEffect(()=>{
+            window.addEventListener("keydown",(e)=>{
+                if(e.key=="ArrowDown"||e.key=="ArrowUp"){
+                    changer(e.key)
+                }
+            })
+  },[])
+
+
+
+
+  const Ajouter=async()=>{
+    
+        try {
+             const resultat1=await fetch("http://localhost:4000/Ajouter1/",{headers:{'Content-Type': 'application/json'},method:"POST",body:JSON.stringify({valeur:"valeur:"+valeur.current})})
+         
+             const resultat2=await resultat1.text()
+
+             console.log(resultat2)
+
+             if(resultat2=="opération passée avec succes"){
+                 valeur.current++
+             }
+            
+        
+        } catch (error) {
+            console.log("une erreur est servenue  11")
+        }  
+  }
+
+
+
+
+  const changer=(key11)=>{
+        if(montrerAux.current==false) return 
+
+        console.log("entrer")
+
+        if(selectedAux.current==null){
+            {
+                setSelectedElement(0)
+                selectedAux.current=0
+            }
+        }else {
+            if(key11=="ArrowDown"){
+                console.log(selectedAux.current)
+                if(selectedAux.current==suggestionAux.current.length-1)
+                  {
+                    setSelectedElement(0)
+                    selectedAux.current=0
+                  }
+                else 
+                  {
+                    setSelectedElement(selectedAux.current+1)
+                    selectedAux.current=selectedAux.current+1
+                  }
+            }
+            else 
+            {
+                if(selectedAux.current==0)
+                  {
+                    setSelectedElement(suggestionAux.current.length-1)
+                    selectedAux.current=suggestionAux.current.length-1
+                  }
+
+                else 
+                  {
+                  
+                    setSelectedElement(selectedAux.current-1) 
+                    selectedAux.current=selectedAux.current-1
+                  }
+
+            }
+        }
+  }
+
+
+
+
 
 
   return (
     <>
-            <span className='font-bold text-[30px]'>
+            <span onClick={Ajouter} id='me11' className='font-bold text-[30px]'>
                 {
                     selected
                 }
             </span>
-            <div id='me'  className='border-black border-[1px] w-[300px] h-[300px] flex justify-center items-center'>
+            <div  id='me'  className='border-black border-[1px] w-[300px] h-[300px] flex justify-center items-center'>
                 <div  className='relative w-[80%] h-[50px]'>
                     <input autoComplete='off' onChange={(e)=>{chercher(e)}} type="text" id='mee' className='border-black border-[1px] pl-5 box-border rounded-[10px] w-full h-full absolute top-0 right-0' />
                     {
@@ -42,7 +135,7 @@ function Test() {
                             <div ref={ref1}  className='bg-white   w-full box-border p-4  min-h-[60px] flex justify-center flex-wrap items-center border'>
                                 {
                                     suggestion.map((ele,key)=>{
-                                        return <div key={key} onClick={()=>{setSelected(ele.nom)}} className='h-[60px] w-full flex justify-center items-center hover:bg-[#dedede7e] cursor-default'>{ele.nom}</div>
+                                        return <div key={key} onMouseEnter={()=>{setSelectedElement(key);selectedAux.current=key}} onClick={()=>{setSelected(ele.nom)}} className={'h-[60px] w-full flex justify-center items-center cursor-default '+`${key==selectedElement?'bg-[#dddcdc53]':''}`}>{ele.nom}</div>
                                     })
                                 }
                             </div>
