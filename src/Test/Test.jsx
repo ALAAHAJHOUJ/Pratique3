@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { CiDark, CiLight } from "react-icons/ci";
+
+
 
 function Test() {
   const [suggestion,setSuggestions]=useState([])
@@ -10,6 +13,7 @@ function Test() {
   const [selectedElement,setSelectedElement]=useState(null)
   const montrerAux=useRef(false)
   const selectedAux=useRef(null)
+  const [Dark,setDark]=useState(false)
 
   const chercher=(e)=>{
      if(!e.target.value) { setSuggestions([]);suggestionAux.current=[];setMontrer(false);montrerAux.current=false;return }
@@ -117,22 +121,39 @@ function Test() {
 
 
 
+  const changer1=()=>{
+
+     setDark((prev)=>{
+          if(prev==true){
+             document.body.style.background="white"
+             return false
+          }else {
+             document.body.style.background="black"
+             return true
+          }
+     })
+  }
 
 
 
   return (
     <>
-            <span onClick={Ajouter} id='me11' className='font-bold text-[30px]'>
+            <div onClick={changer1} className=' flex justify-center items-center w-[100px] h-[100px]'>
+              {
+                Dark==false?<CiDark size={40} className=''></CiDark>:<CiLight size={40} className='text-white'></CiLight>
+              }
+            </div>
+            <span onClick={Ajouter} id='me11' className={'font-bold text-[30px] '+`${Dark==false?'text-black':'text-white'}`}>
                 {
                     selected
                 }
             </span>
-            <div  id='me'  className='border-black border-[1px] w-[300px] h-[300px] flex justify-center items-center'>
+            <div  id='me'  className={'border-[1px] w-[300px] h-[300px] flex justify-center items-center '+`${Dark==false?'border-black':'border-white'}`}>
                 <div  className='relative w-[80%] h-[50px]'>
-                    <input autoComplete='off' onChange={(e)=>{chercher(e)}} type="text" id='mee' className='border-black border-[1px] pl-5 box-border rounded-[10px] w-full h-full absolute top-0 right-0' />
+                    <input autoComplete='off' onChange={(e)=>{chercher(e)}} type="text" id='mee' className={'border-[1px] pl-5 box-border rounded-[10px] w-full h-full absolute top-0 right-0 '+`${Dark==false?'border-black':'border-white bg-black text-white'}`} />
                     {
                         montrer==false?<></>:suggestion.length==0?<div className='absolute cursor-default flex justify-center items-center text-[#afafaf] w-full border  mt-3 pb-5 top-[50px] min-h-[60px]'>Aucune Suggestion</div>:suggestion.length?<div className="absolute w-full  mt-3 pb-5 top-[50px] min-h-[60px]">
-                            <div ref={ref1}  className='bg-white   w-full box-border p-4  min-h-[60px] flex justify-center flex-wrap items-center border'>
+                            <div ref={ref1}  className={' w-full box-border p-4  min-h-[60px] flex justify-center flex-wrap items-center border-[1px] '+`${Dark==false?'border bg-white text-black':'border-white bg-black text-white'}`}>
                                 {
                                     suggestion.map((ele,key)=>{
                                         return <div key={key} onMouseEnter={()=>{setSelectedElement(key);selectedAux.current=key}} onClick={()=>{setSelected(ele.nom)}} className={'h-[60px] w-full flex justify-center items-center cursor-default '+`${key==selectedElement?'bg-[#dddcdc53]':''}`}>{ele.nom}</div>
